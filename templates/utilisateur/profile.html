@@ -1,0 +1,13 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block content %}
+       <div class="text-center">
+            <h3 class="text-gray-800 font-weight-bold">Information</h3>
+            <p class="lead text-gray-800 mx-auto">Nom : {{ user.last_name }}</p>
+            <p class="lead text-gray-800 mx-auto">Prenom : {{ user.first_name }}</p>
+            <p class="lead text-gray-800 mx-auto">Email : {{ user.email }}</p>
+            <p class="lead text-gray-800 mx-auto">Filial : {{ user.filial }}</p>
+            <p class="lead text-gray-800 mx-auto">Departement : {{ user.departement }}</p>
+    </div>
+{% endblock %}

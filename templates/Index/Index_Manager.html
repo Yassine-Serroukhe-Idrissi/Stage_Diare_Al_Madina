@@ -1,0 +1,126 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Index Manager{% endblock title %}
+{% block content %}
+    <div class="container-fluid" id="container-wrapper">
+        <div class="row mb-auto">
+            <div class="col-xl-auto col-lg-auto mb-auto mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Nombre de Demandes Materiels
+                                    Totales {{ request.user.departement }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ demandes_all_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa fa-file fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-auto col-lg-auto mb-auto mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Nombre d'Employee du
+                                    Departement {{ request.user.departement }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ users_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-auto col-lg-auto mb-4 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Nombre de mes demandes chauffeurs
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ demandes_chauffeur_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-car fa-2x text-break"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-lg-7 mb-4 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Demande
+                        Materiel {{ request.user.departement }} {{ request.user.filial }}</h6>
+                    <a class="m-0 float-right btn btn-danger btn-sm" href="{% url 'alldemandes' %}">Plus<i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Demandeur</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for demande in all_first_demande %}
+                            <tr>
+                                <td>{{ demande.demande_id }}</td>
+                                <td>{{ demande.demandeur }}</td>
+                                <td>{{ demande.created_on|date:"M d Y" }}</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">{{ demande.status }}</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    <div class="col-xl-8 col-lg-7 mb-4 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Mes Demandes Chauffeurs</h6>
+                    <a class="m-0 float-right btn btn-danger btn-sm" href="{% url 'demande-chauffeur' %}">Plus<i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Demandeur</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for demande in demandes_chauffeur %}
+                            <tr>
+                                <td>{{ demande.demande_id }}</td>
+                                <td>{{ demande.demandeur }}</td>
+                                <td>{{ demande.created_on|date:"M d Y" }}</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">{{ demande.status }}</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

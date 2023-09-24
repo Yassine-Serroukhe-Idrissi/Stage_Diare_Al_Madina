@@ -1,0 +1,78 @@
+{% extends 'main/layouts.html'%}
+{% load static %}
+{% block title %}Resultat Recherche{% endblock title %}
+
+{%block content%}
+<div class="col-xl-auto col-lg-auto mb-auto mx-auto">
+    <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Demande</h6>
+        </div>
+        <form method="POST" >
+            {% csrf_token %}
+            <input type="submit" class="btn btn-sm btn-success" value="Telecharger">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Departement</th>
+                        <th>Filial</th>
+                        <th>Demandeur</th>
+                        <th>Recapulatif</th>
+                        <th>Telecharger</th>
+                        <th>Date allez</th>
+                        <th>Date retour</th>
+                        <th>Chauffeur</th>
+                        <th>Date Demande</th>
+                        <th>Statu</th>
+                        <th>Date Modification Satatus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for demande in demandes%}
+                    <tr>
+                        <td>{{demande.demande_id}}</td>
+                        <td>{{demande.demandeur.departement}}</td>
+                        <td>{{demande.demandeur.filial}}</td>
+                        <td>{{demande.demandeur}}</td>
+                        <td><a href="{% url 'demande-chauffeur-detail' id=demande.demande_id %}"
+                            class="btn btn-sm btn-outline-primary">Recapulatif</a></td>
+                        <td><a href="{% url 'demande-chauffeur-download' id=demande.demande_id %}"
+                        class="btn btn-sm btn-outline-success">Telecharger</a></td>
+                        <td>{{demande.date_deplacement}}</td>
+                        <td>{{demande.date_retour}}</td>
+                        <td>{{ demande.chauffeur }}</td>
+                        <td>{{demande.created_on |date:"d-m-Y"}}</td>
+                        <td><a href="#" class="btn btn-block btn-primary">{{demande.status}}</a></td>
+                        <td>{{demande.last_modified}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <div class="card-footer">
+            {% if demandes.has_previous %}
+            <a href="?page=1" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </a>
+            <a href="?page={{ demandes.previous_page_number}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-left"></i>
+            </a>
+
+            {% endif %}
+            Page {{demandes.number}} of {{demandes.paginator.num_pages}}
+
+            {% if demandes.has_next %}
+            <a href="?page={{demandes.next_page_number}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a href="?page={{demandes.paginator.num_pages}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="" rel="icon">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/ruang-admin.min.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="col-xl-8 col-lg-7 mb-4 mx-auto">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <img src="{% static 'img/logo.png' %}" width="200" height="100" class="align-self-start mr-3">
+                    <div>
+                        <h4 class="card-title mb-0" style="color: black">DAOSI<br/>Pool Chauffeur / Agent de service
+                            coursier</h4>
+                    </div>
+                </div>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        <h4 class="card-title mb-0" style="color: black">Demande Interne : Demande de mise a
+                            disposition</h4>
+                    </div>
+                    <h6 style="color: black">Date de la demande : {{ demande.created_on|date:"d/m/Y" }}</h6>
+                </div>
+                <br/>
+                <h6 style="color: black">Identite du demandeur :</h6>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th style="color: black">Departement</th>
+                            <th style="color: black">Filial</th>
+                            <th style="color: black"> Nom Prenom</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="color: black">{{ demande.demandeur.departement }}</td>
+                            <td style="color: black">{{ demande.demandeur.filial }}</td>
+                            <td style="color: black">{{ demande.demandeur.first_name }} {{ demande.demandeur.last_name }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h6 style="color: black">Type de la demande : Demande de mise a disposition</h6>
+                <br/>
+                <h6 style="color: black">Tableau descriptif de la demande :</h6>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-bordered">
+                        <thead class="thead-light">
+                        <tr class="bg-gradient-secondary">
+                            <th style="color:black;">Sollicite</th>
+                            <th style="color: black;">Date Deplacement</th>
+                            <th style="color: black;">Date Retour</th>
+                            <th style="color: black;">Mission</th>
+                            <th style="color: black;">Cordonnées du destinataire</th>
+                            <th style="color: black;">Durée estimée (Aller/retour)</th>
+                            <th style="color: black;">Chauffeur</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Chauffeur</td>
+                            <td>{{ demande.date_deplacement |date:"d/m/Y h:m"}}</td>
+                            <td>{{ demande.date_retour |date:"d/m/Y h:m"}}</td>
+                            <td>{{ demande.mission }}</td>
+                            <td>{{ demande.coordonees }}</td>
+                            <td>{{ demande.duree }} {{ demande.duree_type }}</td>
+                            <td>{{ demande.chauffeur.user.first_name}} {{ demande.chauffeur.user.last_name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-bordered">
+                        <thead class="thead-light">
+                        <tr class="bg-gradient-secondary">
+                            <th style="color:black;">Demandeur</th>
+                            <th style="color: black;">Pool Chauffeur / Agent de<br/>service coursier</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Date {{ demande.created_on|date:"d-m-Y" }}<br/>Signature<br/><br/></td>
+                            <td>Date :&ensp;&ensp;&ensp;/&ensp;&ensp;&ensp;/&ensp;&ensp;<br/>Signature et cachet</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span><u>Important</u> : Il est reppelé qu'il s'agit de mission dans le cadre professionnel et qu'il est strictement interdit de fair appel aux chauffeurs/agents de service
+                 coursier pour un service personnel privé sous peine de sanctions .</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

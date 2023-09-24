@@ -1,0 +1,10 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Indisponible{% endblock title %}
+
+{% block content %}
+    <div class="text-center">
+            <h3 class="text-gray-800 font-weight-bold">Un Email a été envoyer au demandeur</h3>
+            <a href="{% url 'demande-chauffeur' %}">← Back to Dashboard</a>
+    </div>
+{% endblock %}

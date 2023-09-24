@@ -1,0 +1,51 @@
+{% extends 'main/layouts.html'%}
+{% load static %}
+{% block title %}List materiels{% endblock title %}
+
+{%block content%}
+<div class="col-xl-8 col-lg-7 mb-4 mx-auto">
+    <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Demande</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items%}
+                <tr>
+                    <td>{{item.item_id}}</td>
+                    <td>{{item.name}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            {% if items.has_previous %}
+            <a href="?page=1" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </a>
+            <a href="?page={{ items.previous_page_number}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            {% endif %}
+            Page {{items.number}} of {{items.paginator.num_pages}}
+
+            {% if items.has_next %}
+            <a href="?page={{items.next_page_number}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a href="?page={{items.paginator.num_pages}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock%}

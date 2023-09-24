@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="" rel="icon">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="{%static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="{%static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="{%static 'css/ruang-admin.min.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="col-xl-8 col-lg-7 mb-4 mx-auto">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <img src="{%static 'img/logo.png' %}" width="200" height="100" class="align-self-start mr-3">
+                    <div>
+                        <h4 class="card-title mb-0" style="color: black">Demande n° {{ demande.demande_id }}</h4>
+                    </div>
+                    <div>
+                        <h4 class="card-title mb-0" style="color: black">Bon de Livraison n° {{ bonlivraison.bl_id }}</h4>
+                    </div>
+                </div>
+                <h6 style="color: black">Date de la demande : {{ demande.created_on|date:"d/m/Y" }}</h6>
+                <br/>
+                <h6 style="color: black">Tableau descriptif de la fourniture demande :</h6>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th style="color: black">#</th>
+                            <th style="color: black">Nom</th>
+                            <th style="color: black">Quantite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td style="color: black">{{forloop.counter}}</td>
+                            <td style="color: black">{{item.name}}</td>
+                            <td style="color: black">{{item.contite}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <h6 style="color: black">Tableau descriptif de la fourniture livrai :</h6>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th style="color: black">#</th>
+                            <th style="color: black">Nom</th>
+                            <th style="color: black">Quantite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in itemlivrai %}
+                        <tr>
+                            <td style="color: black">{{forloop.counter}}</td>
+                            <td style="color: black">{{item.name}}</td>
+                            <td style="color: black">{{item.contite}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style="color: black"> Commentaire</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: black">{{ bonlivraison.commentaire }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

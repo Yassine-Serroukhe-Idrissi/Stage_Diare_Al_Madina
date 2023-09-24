@@ -1,0 +1,42 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Recherche demandes{% endblock title %}
+
+{% block content %}
+    <div class="col-xl-9 col-lg-8 mb-4 mx-auto" id="container-wrapper">
+        <div class="card mb-4 ">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Recherche demande chauffeur</h6>
+            </div>
+            <div class="card-body">
+                <form class="form-inline" method="POST" id="search">
+                    {% csrf_token %}
+                    <label>Date Debut</label>
+                    &thinsp;&thinsp;
+                    <input type="date" class="form-control" name="datedebut">
+                    &thinsp;&thinsp;
+                    <label>Date Fin</label>
+                    &thinsp;&thinsp;
+                    <input type="date" class="form-control" name="datefin">
+                    &thinsp;&thinsp;
+                    <label>Statut Demande</label>
+                    &thinsp;&thinsp;
+                    <select class="custom-select mr-sm-2" name="status"
+                            tabindex="-1" aria-hidden="true" id="status">
+                        <option value=""></option>
+                        <option value="Nouvelle Demande">Nouvelle Demande</option>
+                        <option value="Confirmer par admin">Confirmer par admin</option>
+                        <option value="Confirmer par Superieur">Confirmer par Superieur</option>
+                        <option value="Demande annuler">Demande annuler</option>
+                        <option value="Choisissez nouvelle dates">Choisissez nouvelle dates</option>
+                    </select>
+
+                    <button type="submit" class="btn-success">Rechercher</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

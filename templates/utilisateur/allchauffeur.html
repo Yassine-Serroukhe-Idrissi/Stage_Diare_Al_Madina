@@ -1,0 +1,67 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Liste utilisateurs{% endblock title %}
+
+{% block content %}
+    <div class="col-xl-auto col-lg-auto mb-4 mx-auto">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Utilisateur</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Prenom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Filial</th>
+                        <th>Departement</th>
+                        <th>Disponible</th>
+                        <th>Date reserver</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for u in users %}
+                        <tr>
+                            <td>{{ u.user.first_name }}</td>
+                            <td>{{ u.user.last_name }}</td>
+                            <td>{{ u.user.email }}</td>
+                            <td>{{ u.user.filial }}</td>
+                            <td>{{ u.user.departement }}</td>
+                            <td>
+                                {% if u.indisponible == False %}
+                                    Disponibe
+                                {% else %}
+                                    Indisponibe
+                                {% endif %}
+                            </td>
+                            <td><a href="{% url 'date-reserver' u.user.id %}" class="btn btn-sm btn-warning">Liste des Dates</a> </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                {% if users.has_previous %}
+                    <a href="?page=1" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    </a>
+                    <a href="?page={{ users.previous_page_number }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                Page {{ users.number }} of {{ users.paginator.num_pages }}
+
+                {% if users.has_next %}
+                    <a href="?page={{ users.next_page_number }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="?page={{ users.paginator.num_pages }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

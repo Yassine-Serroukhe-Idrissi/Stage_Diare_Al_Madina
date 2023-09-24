@@ -1,0 +1,21 @@
+{% extends 'main/layouts.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Edit Profile{% endblock title %}
+
+{% block content %}
+    <div class="col-xl-8 col-lg-7 mb-4 mx-auto" id="container-wrapper">
+        <div class="card mb-4 ">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Editer Profile</h6>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-sm btn-success">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

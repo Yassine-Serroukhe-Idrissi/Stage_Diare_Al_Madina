@@ -1,0 +1,16 @@
+1-Installer Mysql
+2-Demarer Mysql
+3-Installer rabbitmq
+4-Demarer rabbitmq
+5-Se rendre dans le chemin du projet
+6-Activer l'envirenment virtuel avec la commande suivante
+    ./venv/Script/activate
+7-Demarer celery
+     celery -A GestionDemande worker -l info -P solo
+8-ouvrire un nouveau terminal est refaire les etapes 5 et 6
+9- python manage.py migrate
+10- On creer un compte admin pour pouvoir utiliser l'application
+la premiere fois :
+    python .\manage.py createsuperuser
+10- Demarer l'application :
+    python manage.py runserver

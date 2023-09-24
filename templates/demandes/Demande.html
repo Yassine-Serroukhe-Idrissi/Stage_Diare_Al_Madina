@@ -1,0 +1,74 @@
+{% extends 'main/layouts.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Demande Materiel{% endblock title %}
+
+{% block content %}
+    {{ formset.media }}
+    {% load formset_tags %}
+
+    <div class="col-xl-8 col-lg-7 mb-4 mx-auto" id="container-wrapper">
+        <div class="card mb-4 ">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Demande de fourniture</h6>
+            </div>
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h4 class="m-0 font-weight-bold text-primary">List Materiel</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div id="formset" data-formset-prefix="{{ formset.prefix }}">
+                        {{ formset.management_form }}
+                        <div data-formset-body>
+                            {% for form in formset %}
+                                <div data-formset-form>
+
+                                    <div class="input-group">
+                                        {{ form.name.label }}
+                                        {{ form.name }}
+                                        {{ form.contite.label }}
+                                        {{ form.contite }}
+                                        <button type="button" data-formset-delete-button class="btn-danger">Supprimer
+                                        </button>
+                                        {{ form.DELETE }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- The empty form template. By wrapping this in a <script> tag, the
+                        __prefix__ placeholder can easily be replaced in both attributes and
+                        any scripts -->
+                        <script type="form-template" data-formset-empty-form>
+                            {% escapescript %}
+                                <div data-formset-form>
+                                    <div class="input-group">
+                                        {{ formset.empty_form.name.label }}
+                                        {{ formset.empty_form.name }}
+                                        {{ formset.empty_form.contite.label }}
+                                        {{ formset.empty_form.contite }}
+                                        <button type="button" data-formset-delete-button class="btn-danger">Supprimer
+                                        </button>
+                                        {{ formset.empty_form.DELETE }}
+                                    </div>
+                                </div>
+                            {% endescapescript %}
+                        </script>
+                        <br/>
+                        <!-- This button will add a new form when clicked -->
+                        <input type="button" value="Ajouter" data-formset-add class="btn-primary">
+
+                        <script>jQuery(function ($) {
+                            $("#formset").formset({
+                                animateForms: true,
+                                reorderMode: 'dom',
+                            });
+                        });</script>
+                        <button type="submit" class="btn-success">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

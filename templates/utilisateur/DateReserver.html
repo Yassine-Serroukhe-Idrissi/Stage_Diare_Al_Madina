@@ -1,0 +1,54 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Liste des dates reservers{% endblock title %}
+
+{% block content %}
+
+
+     <div class="col-xl-auto col-lg-auto mb-4 mx-auto">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">{{ chauffeur.user.first_name }} {{ chauffeur.user.last_name }}</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Date Allez</th>
+                        <th>Date Retour</th>
+                        <th>Destination</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for u in reserver %}
+                        <tr>
+                            <td>{{ u.date_reserver }}</td>
+                            <td>{{ u.date_retour }}</td>
+                            <td>{{ u.demande.lieu_deplacement }}</td>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                {% if reserver.has_previous %}
+                    <a href="?page=1" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    </a>
+                    <a href="?page={{ reserver.previous_page_number }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                Page {{ reserver.number }} of {{ reserver.paginator.num_pages }}
+
+                {% if reserver.has_next %}
+                    <a href="?page={{ reserver.next_page_number }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="?page={{ reserver.paginator.num_pages }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

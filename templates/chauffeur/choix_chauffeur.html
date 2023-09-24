@@ -1,0 +1,30 @@
+{% extends 'main/layouts.html' %}
+{% load static %}
+{% block title %}Chauffeur disponible{% endblock title %}
+
+{% block content %}
+    <div class="col-xl-9 col-lg-8 mb-4 mx-auto" id="container-wrapper">
+        <div class="card mb-4 ">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Date Deplacement</h6>
+            </div>
+            <div class="card-body">
+                <form class="form-row" method="POST">
+                    {% csrf_token %}
+                         <select name="chauffeur" class="custom-select mr-sm-2">
+                        {% for c in chauffeurs %}
+                            <option value="{{ c.user_id }}">{{ c.user.first_name }}</option>
+                        {% endfor %}
+                        </select>
+                    <p>
+                        <br>
+                        <button type="submit" class="btn-success btn">Envoyer</button>
+                        <input type="submit" name="cancel" value="Cancel" class="btn btn-danger"/>
+                    </p>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

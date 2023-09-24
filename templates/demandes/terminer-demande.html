@@ -1,0 +1,71 @@
+{% extends 'main/layouts.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Bon Livraison{% endblock title %}
+
+{% block content %}
+    {{ formset.media }}
+    {% load formset_tags %}
+
+    <div class="col-xl-8 col-lg-7 mb-4 mx-auto" id="container-wrapper">
+        <div class="card mb-4 ">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Fermer la demande n° {{ demande.demande_id }}</h6>
+            </div>
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold text-primary">Materiels demander</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Quantite</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.contite }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold text-primary">Materiels reçus</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Quantite</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in itemlivrai %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.contite }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="m-0 font-weight-bold text-primary">Commentaire Livraison : </h3>
+        <br/>
+        <p class="ml-3">{{ bonlivraison.commentaire }}</p>
+        <br/>
+        <br/>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-success">Confirmer</button>
+    </form>
+
+    </div>
+{% endblock %}

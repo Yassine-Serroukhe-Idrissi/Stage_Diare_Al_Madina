@@ -1,0 +1,159 @@
+{% load static %}
+<!-- Sidebar -->
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
+        <div class="sidebar-brand-icon">
+            <img src="{% static 'img/logo.png' %}">
+        </div>
+        <div class="sidebar-brand-text mx-3">Dyar Al Madina</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+    <hr class="sidebar-divider">
+    {% if request.user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemande"
+               aria-expanded="true" aria-controls="collapseDemande">
+                <span>Demande Materiel</span>
+            </a>
+            <div id="collapseDemande" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'alldemandes' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'demande' %}">Nouvelles Demandes</a>
+                    <a class="collapse-item" href="{% url 'recherchedemande' %}">Recherche</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemandeChauffeur"
+               aria-expanded="true" aria-controls="collapseDemandeChauffeur">
+                <span>Demande Chauffeur</span>
+            </a>
+            <div id="collapseDemandeChauffeur" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'demande-chauffeur' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'new-demande-chauffeur' %}">Nouvelles Demandes</a>
+                    <a class="collapse-item" href="{% url 'recherchedemande-chauffeur' %}">Recherche</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMateriel"
+               aria-expanded="true"
+               aria-controls="collapseMateriel">
+                <span>Materiel</span>
+            </a>
+            <div id="collapseMateriel" class="collapse" aria-labelledby="headingMateriel"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'allmateriels' %}">Liste Materiels</a>
+                    <a class="collapse-item" href="{% url 'addItem' %}">Nouveau Materiels</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilisateur"
+               aria-expanded="true"
+               aria-controls="collapseUtilisateur">
+                <span>Utilisateur</span>
+            </a>
+            <div id="collapseUtilisateur" class="collapse" aria-label="collapseUtilisateur"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'allusers' %}">Liste Utilisateurs</a>
+                    <a class="collapse-item" href="{% url 'allchauffeur' %}">Liste Chauffeur</a>
+                    <a class="collapse-item" href="{% url 'register' %}">Nouveau Utilisateur</a>
+                </div>
+            </div>
+        </li>
+    {% elif request.user.is_employee %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
+               aria-expanded="true" aria-controls="collapseBootstrap">
+                <span>Demande Materiel</span>
+            </a>
+            <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'alldemandes' %}">Mes demandes</a>
+                    <a class="collapse-item" href="{% url 'demande' %}">Nouvelles Demandes</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemandeChauffeur"
+               aria-expanded="true" aria-controls="collapseDemandeChauffeur">
+                <span>Demande Chauffeur</span>
+            </a>
+            <div id="collapseDemandeChauffeur" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'demande-chauffeur' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'new-demande-chauffeur' %}">Nouvelles Demandes</a>
+                </div>
+            </div>
+        </li>
+    {% elif request.user.is_chauffeur %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemande"
+               aria-expanded="true" aria-controls="collapseDemande">
+                <span>Mes demandes</span>
+            </a>
+            <div id="collapseDemande" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'demande-chauffeur' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'chauffeur-statut' %}">Statut</a>
+                </div>
+
+            </div>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemande"
+               aria-expanded="true" aria-controls="collapseDemande">
+                <span>Demande Materiel</span>
+            </a>
+            <div id="collapseDemande" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'alldemandes' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'demande' %}">Nouvelles Demandes</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDemandeChauffeur"
+               aria-expanded="true" aria-controls="collapseDemandeChauffeur">
+                <span>Demande Chauffeur</span>
+            </a>
+            <div id="collapseDemandeChauffeur" class="collapse" aria-labelledby="headingDemande"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'demande-chauffeur' %}">Toutes Demandes</a>
+                    <a class="collapse-item" href="{% url 'new-demande-chauffeur' %}">Nouvelles Demandes</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilisateur"
+               aria-expanded="true"
+               aria-controls="collapseUtilisateur">
+                <span>Employee</span>
+            </a>
+            <div id="collapseUtilisateur" class="collapse" aria-label="collapseUtilisateur"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{% url 'allusers' %}">Liste des Employees</a>
+                </div>
+            </div>
+        </li>
+    {% endif %}
+
+</ul>
